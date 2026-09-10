@@ -9,4 +9,11 @@ class SessionsController < ApplicationController
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
+
+  def destroy
+    authenticate_user!
+
+    current_user.clear_auth_token!
+    head :no_content
+  end
 end
