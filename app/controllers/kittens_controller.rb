@@ -1,5 +1,6 @@
-class KittensController < ActionController::API
+class KittensController < ApplicationController
   before_action :set_kitten, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: %i[ create update destroy ]
 
   def index
     @kittens = Kitten.all

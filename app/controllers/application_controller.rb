@@ -1,7 +1,20 @@
-class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+class ApplicationController < ActionController::API
+  private
 
-  # Changes to the importmap will invalidate the etag for HTML responses
-  stale_when_importmap_changes
+  def current_user
+    header = request.headers['Authorization']
+    return if header.blank?
+
+    token = header.split.last
+    return if token.blank?
+
+    User.authenticate_by_token(token)
+  end
+
+  def authenticate_user!
+    unless current_user
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+      return
+    end
+  end
 end

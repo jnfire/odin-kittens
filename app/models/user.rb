@@ -19,7 +19,9 @@ class User < ApplicationRecord
     )
   end
 
-  def self.authenticate_with_token(token)
+  def self.authenticate_by_token(token)
+    return if token.blank?
+
     digest = Digest::SHA256.hexdigest(token)
     find_by(auth_token_digest: digest)
   end
