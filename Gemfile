@@ -8,7 +8,7 @@ gem "propshaft"
 gem "sqlite3", ">= 2.1"
 # Pin below 3.0: json 3.0's JSON.parse(source, **kwargs) breaks ActiveSupport::JSON.decode,
 # which still calls JSON.parse(json, options_hash) positionally (session cookie decryption fails).
-gem "json", "~> 2.21"
+gem "json", "~> 3.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
